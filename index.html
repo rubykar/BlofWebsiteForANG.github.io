@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown Timer</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <!-- <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> -->
 </head>
 
 <body>
@@ -30,11 +30,11 @@
         <span>secs</span>
     </div>
     </div> -->
-
-    <div>
-        BUILD A TODO APP WITH ANGULAR
+    <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
         <div>
-            <pre>
+            BUILD A TODO APP WITH ANGULAR
+            <div>
+                <pre>
                 // src/app/app.component.ts
                 import { Component } from '@angular/core';
                 import { Todo } from './todo.model';
@@ -60,361 +60,366 @@
                 this.todos = this.todos.filter(todo => todo.id !== id);
                 }
                 }</pre>
-            <p>
-                <xmp>
-                    <!-- src/app/app.component.html -->
-                    <div>
-
-                        <h1>Todo List</h1>
+                <p>
+                    <xmp>
+                        <!-- src/app/app.component.html -->
                         <div>
-                            <input type="text" [(ngModel)]="newTodoText" placeholder="Add a new task" />
-                            <button (click)="addTodo()">Add</button>
-                        </div>
-                        <div *ngFor="let todo of todos">
+
+                            <h1>Todo List</h1>
                             <div>
-                                <input type="checkbox" [(ngModel)]="todo.completed" />
-                                <span [class.completed]="todo.completed">{{ todo.text }}</span>
-                                <button (click)="deleteTodo(todo.id)">Delete</button>
+                                <input type="text" [(ngModel)]="newTodoText" placeholder="Add a new task" />
+                                <button (click)="addTodo()">Add</button>
+                            </div>
+                            <div *ngFor="let todo of todos">
+                                <div>
+                                    <input type="checkbox" [(ngModel)]="todo.completed" />
+                                    <span [class.completed]="todo.completed">{{ todo.text }}</span>
+                                    <button (click)="deleteTodo(todo.id)">Delete</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </xmp>
-            </p>
+                    </xmp>
+                </p>
+            </div>
         </div>
-    </div>
 
-    <div>
+        <div>
 
-        <xmp>
-            WEATHER APP
+            <xmp>
+                WEATHER APP
 
-            import { HttpClient } from '@angular/common/http';
-            import { Component } from '@angular/core';
+                import { HttpClient } from '@angular/common/http';
+                import { Component } from '@angular/core';
 
-            @Component({
-            selector: 'app-root',
-            templateUrl: './app.component.html',
-            styleUrl: './app.component.css'
-            })
-            export class AppComponent {
-            title = 'weather-app';
+                @Component({
+                selector: 'app-root',
+                templateUrl: './app.component.html',
+                styleUrl: './app.component.css'
+                })
+                export class AppComponent {
+                title = 'weather-app';
 
-            //WAETHER APP COMPONENTS
-            city: string = '';
-            apiKey: string = 'd3756a621ffd7295ee3c5c01028ae081'; // Replace with your OpenWeatherMap API key
-            weather: any;
+                //WAETHER APP COMPONENTS
+                city: string = '';
+                apiKey: string = 'd3756a621ffd7295ee3c5c01028ae081'; // Replace with your OpenWeatherMap API key
+                weather: any;
 
-            constructor(private https: HttpClient) {}
+                constructor(private https: HttpClient) {}
 
-            ngOnInit() {
-            // You can perform initialization logic here if needed
-            }
+                ngOnInit() {
+                // You can perform initialization logic here if needed
+                }
 
-            getWeather() {
-            const apiUrl = https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apiKey};
+                getWeather() {
+                const apiUrl = https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apiKey};
 
-            this.https.get(apiUrl).subscribe((data: any) => {
-            this.weather = data;
-            });
-            }
-            }
+                this.https.get(apiUrl).subscribe((data: any) => {
+                this.weather = data;
+                });
+                }
+                }
 
 
-            <!-- WEATHER APP -->
+                <!-- WEATHER APP -->
 
-            <!-- src/app/app.component.html -->
-            <div>
-                <h1>Weather App</h1>
+                <!-- src/app/app.component.html -->
                 <div>
-                    <label for="city">Enter City:</label>
-                    <input type="text" id="city" [(ngModel)]="city" />
-                    <button (click)="getWeather()">Get Weather</button>
+                    <h1>Weather App</h1>
+                    <div>
+                        <label for="city">Enter City:</label>
+                        <input type="text" id="city" [(ngModel)]="city" />
+                        <button (click)="getWeather()">Get Weather</button>
+                    </div>
+                    <div *ngIf="weather">
+                        <h2>{{ weather.name }}, {{ weather.sys.country }}</h2>
+                        <p>Temperature: {{ weather.main.temp }}°C</p>
+                        <p>Weather: {{ weather.weather[0].description }}</p>
+                        <p>Humidity: {{ weather.main.humidity }}%</p>
+                    </div>
                 </div>
-                <div *ngIf="weather">
-                    <h2>{{ weather.name }}, {{ weather.sys.country }}</h2>
-                    <p>Temperature: {{ weather.main.temp }}°C</p>
-                    <p>Weather: {{ weather.weather[0].description }}</p>
-                    <p>Humidity: {{ weather.main.humidity }}%</p>
+
+
+                import { NgModule } from '@angular/core';
+                import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+
+                import { AppRoutingModule } from './app-routing.module';
+                import { AppComponent } from './app.component';
+
+                import { FormsModule } from '@angular/forms';
+                import { HttpClientModule } from '@angular/common/http';
+
+                @NgModule({
+                declarations: [
+                AppComponent
+                ],
+                imports: [
+                BrowserModule,
+                AppRoutingModule,
+                FormsModule,
+                HttpClientModule
+                ],
+                providers: [
+                provideClientHydration()
+                ],
+                bootstrap: [AppComponent]
+                })
+                export class AppModule { }
+            </xmp>
+        </div>
+
+        <div>
+            DEPENDENCY INJECTIOn
+            <xmp>
+                Fruits Components
+
+                import { Component } from '@angular/core';
+                import { WaterService } from '../water.service';
+
+                @Component({
+                selector: 'app-fruits',
+                templateUrl: './fruits.component.html',
+                styleUrl: './fruits.component.css'
+                })
+                export class FruitsComponent {
+
+                fruits: string[] = ['Apple', 'Banana', 'Orange'];
+
+                waterType: string[];
+
+                constructor(private waterService: WaterService) {
+                this.waterType = this.waterService.getWaterType();
+                }
+                }
+
+                <p>fruits works!</p>
+
+
+                <div>
+                    <h2>Fruits</h2>
+                    <ul>
+                        <li *ngFor="let fruit of fruits">{{ fruit }}</li>
+                    </ul>
+                    <h2>Water</h2>
+                    <ul>
+                        <li *ngFor="let water of waterType">{{water}}</li>
+                    </ul>
                 </div>
-            </div>
 
 
-            import { NgModule } from '@angular/core';
-            import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+                Vegetables Component
 
-            import { AppRoutingModule } from './app-routing.module';
-            import { AppComponent } from './app.component';
+                import { Component } from '@angular/core';
+                import { WaterService } from '../water.service';
 
-            import { FormsModule } from '@angular/forms';
-            import { HttpClientModule } from '@angular/common/http';
+                @Component({
+                selector: 'app-vegetables',
+                templateUrl: './vegetables.component.html',
+                styleUrl: './vegetables.component.css'
+                })
+                export class VegetablesComponent {
+                vegetables: string[] = ['Carrot', 'Broccoli', 'Spinach'];
 
-            @NgModule({
-            declarations: [
-            AppComponent
-            ],
-            imports: [
-            BrowserModule,
-            AppRoutingModule,
-            FormsModule,
-            HttpClientModule
-            ],
-            providers: [
-            provideClientHydration()
-            ],
-            bootstrap: [AppComponent]
-            })
-            export class AppModule { }
-        </xmp>
-    </div>
+                waterType: string[];
 
-    <div>
-        DEPENDENCY INJECTIOn
-        <xmp>
-            Fruits Components
-
-            import { Component } from '@angular/core';
-            import { WaterService } from '../water.service';
-
-            @Component({
-            selector: 'app-fruits',
-            templateUrl: './fruits.component.html',
-            styleUrl: './fruits.component.css'
-            })
-            export class FruitsComponent {
-
-            fruits: string[] = ['Apple', 'Banana', 'Orange'];
-
-            waterType: string[];
-
-            constructor(private waterService: WaterService) {
-            this.waterType = this.waterService.getWaterType();
-            }
-            }
-
-            <p>fruits works!</p>
+                constructor(private waterService: WaterService) {
+                this.waterType = this.waterService.getWaterType();
+                }
+                }
 
 
-            <div>
-                <h2>Fruits</h2>
-                <ul>
-                    <li *ngFor="let fruit of fruits">{{ fruit }}</li>
-                </ul>
-                <h2>Water</h2>
-                <ul>
-                    <li *ngFor="let water of waterType">{{water}}</li>
-                </ul>
-            </div>
+                <p>vegetables works!</p>
+
+                <div>
+                    <h2>Vegetables</h2>
+                    <ul>
+                        <li *ngFor="let vegetable of vegetables">{{ vegetable }}</li>
+                    </ul>
+                    <h2>Water</h2>
+                    <ul>
+                        <li *ngFor="let water of waterType">{{water}}</li>
+                    </ul>
+                </div>
 
 
-            Vegetables Component
+                app.component.ts
+                import { Component } from '@angular/core';
+                import { WaterService } from './water.service';
 
-            import { Component } from '@angular/core';
-            import { WaterService } from '../water.service';
+                @Component({
+                selector: 'app-root',
+                templateUrl: './app.component.html',
+                styleUrl: './app.component.css'
+                })
+                export class AppComponent {
+                title = 'app-dependency';
 
-            @Component({
-            selector: 'app-vegetables',
-            templateUrl: './vegetables.component.html',
-            styleUrl: './vegetables.component.css'
-            })
-            export class VegetablesComponent {
-            vegetables: string[] = ['Carrot', 'Broccoli', 'Spinach'];
+                waterType: string[];
 
-            waterType: string[];
-
-            constructor(private waterService: WaterService) {
-            this.waterType = this.waterService.getWaterType();
-            }
-            }
-
-
-            <p>vegetables works!</p>
-
-            <div>
-                <h2>Vegetables</h2>
-                <ul>
-                    <li *ngFor="let vegetable of vegetables">{{ vegetable }}</li>
-                </ul>
-                <h2>Water</h2>
-                <ul>
-                    <li *ngFor="let water of waterType">{{water}}</li>
-                </ul>
-            </div>
+                constructor(private waterService: WaterService) {
+                this.waterType = this.waterService.getWaterType();
+                }
+                }
 
 
-            app.component.ts
-            import { Component } from '@angular/core';
-            import { WaterService } from './water.service';
-
-            @Component({
-            selector: 'app-root',
-            templateUrl: './app.component.html',
-            styleUrl: './app.component.css'
-            })
-            export class AppComponent {
-            title = 'app-dependency';
-
-            waterType: string[];
-
-            constructor(private waterService: WaterService) {
-            this.waterType = this.waterService.getWaterType();
-            }
-            }
+                app.co.html
+                <div>
+                    <h1>My Kitchen</h1>
+                    <app-fruits></app-fruits>
+                    <app-vegetables></app-vegetables>
+                    <p>Water Type: {{ waterType }}</p>
+                </div>
 
 
-            app.co.html
-            <div>
-                <h1>My Kitchen</h1>
-                <app-fruits></app-fruits>
-                <app-vegetables></app-vegetables>
-                <p>Water Type: {{ waterType }}</p>
-            </div>
+                app.module
+
+                import { NgModule } from '@angular/core';
+                import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+
+                import { AppRoutingModule } from './app-routing.module';
+                import { AppComponent } from './app.component';
+                import { FruitsComponent } from './fruits/fruits.component';
+                import { VegetablesComponent } from './vegetables/vegetables.component';
+                import { WaterService } from './water.service';
+
+                @NgModule({
+                declarations: [
+                AppComponent,
+                FruitsComponent,
+                VegetablesComponent
+                ],
+                imports: [
+                BrowserModule,
+                AppRoutingModule
+                ],
+                providers: [
+                provideClientHydration(),
+                WaterService,
+                ],
+                bootstrap: [AppComponent]
+                })
+                export class AppModule { }
+            </xmp>
+        </div>
+
+        <div>
+            <xmp>
+                # GET request to retrieve all blogs
+                ###
+                GET http://localhost:3000/
+
+                # POST request to add a new blog
+                ###
+                POST http://localhost:3000/blogs
+                Content-Type: application/json
+
+                {
+                "title": "Learn Express",
+                "content": "This is a blog post about Express."
+                }
 
 
-            app.module
+                const express = require('express')
+                const app = express()
+                const port = 3000
 
-            import { NgModule } from '@angular/core';
-            import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+                const bodyParser = require('body-parser');
 
-            import { AppRoutingModule } from './app-routing.module';
-            import { AppComponent } from './app.component';
-            import { FruitsComponent } from './fruits/fruits.component';
-            import { VegetablesComponent } from './vegetables/vegetables.component';
-            import { WaterService } from './water.service';
+                app.use(bodyParser.json());
 
-            @NgModule({
-            declarations: [
-            AppComponent,
-            FruitsComponent,
-            VegetablesComponent
-            ],
-            imports: [
-            BrowserModule,
-            AppRoutingModule
-            ],
-            providers: [
-            provideClientHydration(),
-            WaterService,
-            ],
-            bootstrap: [AppComponent]
-            })
-            export class AppModule { }
-        </xmp>
-    </div>
+                blogs = [
+                {id: 1,title : "Blog 1", content : "Content 1"},
+                ];
 
-    <div>
-        <xmp>
-            # GET request to retrieve all blogs
-            ###
-            GET http://localhost:3000/
-
-            # POST request to add a new blog
-            ###
-            POST http://localhost:3000/blogs
-            Content-Type: application/json
-
-            {
-            "title": "Learn Express",
-            "content": "This is a blog post about Express."
-            }
-
-
-            const express = require('express')
-            const app = express()
-            const port = 3000
-
-            const bodyParser = require('body-parser');
-
-            app.use(bodyParser.json());
-
-            blogs = [
-            {id: 1,title : "Blog 1", content : "Content 1"},
-            ];
-
-            app.get('/', (req, res) => {
-            res.json(blogs);
-            });
+                app.get('/', (req, res) => {
+                res.json(blogs);
+                });
 
 
 
-            app.get('/blogs/:id', (req, res) => {
-            const id = req.params.id;
-            const blog = blogs.find(blog => blog.id == id);
-            res.json(blog);
-            });
+                app.get('/blogs/:id', (req, res) => {
+                const id = req.params.id;
+                const blog = blogs.find(blog => blog.id == id);
+                res.json(blog);
+                });
 
 
-            app.post('/blogs', (req, res) => {
-            const { title, content } = req.body;
-            const newBlog = { id: blogs.length + 1, title, content };
-            blogs.push(newBlog);
-            res.json(newBlog);
-            });
+                app.post('/blogs', (req, res) => {
+                const { title, content } = req.body;
+                const newBlog = { id: blogs.length + 1, title, content };
+                blogs.push(newBlog);
+                res.json(newBlog);
+                });
 
 
-            app.listen(port, () => {
-            console.log(Example app listening on port ${port})
-            })
-        </xmp>
-    </div>
+                app.listen(port, () => {
+                console.log(Example app listening on port ${port})
+                })
+            </xmp>
+        </div>
 
-    <div>
-        const express = require('express');
-        const bodyParser = require('body-parser');
-        const mongoose = require('mongoose');
+        <div>
+            <xmp>
+                const express = require('express');
+                const bodyParser = require('body-parser');
+                const mongoose = require('mongoose');
 
-        const app = express();
-        const port = 3000;
+                const app = express();
+                const port = 3000;
 
-        const ATLAS_URI = "mongodb+srv://karruby15:9cVPjD095xKTXV4D@cluster0.07pblg8.mongodb.net/";
+                const ATLAS_URI = "mongodb+srv://karruby15:9cVPjD095xKTXV4D@cluster0.07pblg8.mongodb.net/";
 
-        mongoose.connect(ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+                mongoose.connect(ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-        const userSchema = new mongoose.Schema({
-        name: String,
-        email: String,
-        age: Number,
-        });
+                const userSchema = new mongoose.Schema({
+                name: String,
+                email: String,
+                age: Number,
+                });
 
-        const User = mongoose.model('User', userSchema);
+                const User = mongoose.model('User', userSchema);
 
-        const newUser = new User({
-        name: 'Roki Jolin',
-        email: 'roki12@example.com',
-        age: 23,
-        });
+                const newUser = new User({
+                name: 'Roki Jolin',
+                email: 'roki12@example.com',
+                age: 23,
+                });
 
-        newUser.save()
-        .then(() => {
-        console.log('Save User at MongoDB');
-        })
-        .catch((error) => {
-        console.error(error);
-        });
+                newUser.save()
+                .then(() => {
+                console.log('Save User at MongoDB');
+                })
+                .catch((error) => {
+                console.error(error);
+                });
 
-        app.use(bodyParser.json());
+                app.use(bodyParser.json());
 
-        app.post("/users", async (request, response) => {
-        const user = new User(request.body);
-        try {
-        await user.save();
-        response.send(user);
-        } catch (error) {
-        response.status(500).send(error);
-        }
-        });
+                app.post("/users", async (request, response) => {
+                const user = new User(request.body);
+                try {
+                await user.save();
+                response.send(user);
+                } catch (error) {
+                response.status(500).send(error);
+                }
+                });
 
-        app.get("/users", async (request, response) => {
-        try {
-        const users = await User.find({});
-        response.send(users);
-        } catch (error) {
-        response.status(500).send(error);
-        }
-        });
 
-        app.listen(port, () => {
-        console.log(Server is running on http://localhost:${port});
-        });
+                app.get("/users", async (request, response) => {
+                try {
+                const users = await User.find({});
+                response.send(users);
+                } catch (error) {
+                response.status(500).send(error);
+                }
+                });
+
+
+                app.listen(port, () => {
+                console.log(Server is running on http://localhost:${port});
+                });
+            </xmp>
+        </div>
     </div>
 </body>
 

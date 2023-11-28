@@ -172,20 +172,20 @@
             <div>
                 <xmp>
                     import { Injectable } from '@angular/core';
-    
+
                     @Injectable({
                     providedIn: 'root'
                     })
                     export class WaterService {
-    
+
                     typeOfWater : string []= ['Fresh water', 'Salt water', 'Brackish water'];
-    
+
                     getWaterType(): string[] {
                     return this.typeOfWater;
                     }
                     constructor() { }
                     }
-    
+
                 </xmp>
             </div>
             <xmp>
@@ -437,6 +437,99 @@
                         app.listen(port, () => {
                         console.log(Server is running on http://localhost:${port});
                         });
+            </xmp>
+        </div>
+        <div>
+
+            <xmp>
+                import { HttpClient } from '@angular/common/http';
+                import { Component } from '@angular/core';
+
+                @Component({
+                selector: 'app-root',
+                templateUrl: './app.component.html',
+                styleUrl: './app.component.css',
+                })
+                export class AppComponent {
+                title = 'weather-app';
+
+                students = [
+                { id: 1, name: 'John Doe', marks: 90, grade: 'A' },
+                { id: 2, name: 'Jane Smith', marks: 85, grade: 'B' },
+                { id: 3, name: 'Bob Johnson', marks: 95, grade: 'A' },
+                // Add more student data as needed
+                ];
+
+                sortByMarks() {
+                this.students.sort((a, b) => a.marks - b.marks);
+                }
+
+                cityList: string[] = ['Siliguri', 'Delhi', 'Mumbai', 'Bengaluru'];
+                tempuratue: number[] = [20, 40, 30, 25];
+                humidity: number[] = [10, 20, 30, 40];
+                pressure: number[] = [10, 20, 30, 40];
+
+                //WAETHER APP COMPONENTS
+                city: string = '';
+                apiKey: string = 'd3756a621ffd7295ee3c5c01028ae081'; // Replace with your OpenWeatherMap API key
+                weather: any;
+
+                constructor(private https: HttpClient) {}
+
+                ngOnInit() {
+                // You can perform initialization logic here if needed
+                }
+
+                getWeather() {
+                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apiKey}`;
+
+                this.https.get(apiUrl).subscribe((data: any) => {
+                this.weather = data;
+                });
+                }
+                }
+                <!-- WEATHER APP -->
+
+                <!-- src/app/app.component.html -->
+                <div>
+                    <h1>Weather App</h1>
+                    <div>
+                        <label for="city">Enter City:</label>
+                        <input type="text" id="city" [(ngModel)]="city" />
+                        <button (click)="getWeather()">Get Weather</button>
+                    </div>
+                    <div *ngIf="weather">
+                        <h2>{{ weather.name }}, {{ weather.sys.country }}</h2>
+                        <p>Temperature: {{ weather.main.temp }}°F</p>
+                        <p>Weather: {{ weather.weather[0].description }}</p>
+                        <p>Humidity: {{ weather.main.humidity }}%</p>
+                    </div>
+                    <div>
+                        <h2>Student Data Table</h2>
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Marks</th>
+                                    <th>Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let student of students">
+                                    <td>{{ student.id }}</td>
+                                    <td>{{ student.name }}</td>
+                                    <td>{{ student.marks }}</td>
+                                    <td>{{ student.grade }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <button (click)="sortByMarks()">Sort by Marks (Asc)</button>
+                    </div>
+                </div>
+
+
             </xmp>
         </div>
 

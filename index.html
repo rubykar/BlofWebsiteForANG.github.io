@@ -168,7 +168,26 @@
         </div>
 
         <div>
-            DEPENDENCY INJECTIOn
+            DEPENDENCY INJECTION
+            <div>
+                <xmp>
+                    import { Injectable } from '@angular/core';
+    
+                    @Injectable({
+                    providedIn: 'root'
+                    })
+                    export class WaterService {
+    
+                    typeOfWater : string []= ['Fresh water', 'Salt water', 'Brackish water'];
+    
+                    getWaterType(): string[] {
+                    return this.typeOfWater;
+                    }
+                    constructor() { }
+                    }
+    
+                </xmp>
+            </div>
             <xmp>
                 Fruits Components
 
@@ -420,25 +439,7 @@
                         });
             </xmp>
         </div>
-        <div>
-            <xmp>
-                import { Injectable } from '@angular/core';
 
-                @Injectable({
-                providedIn: 'root'
-                })
-                export class WaterService {
-
-                typeOfWater : string []= ['Fresh water', 'Salt water', 'Brackish water'];
-
-                getWaterType(): string[] {
-                return this.typeOfWater;
-                }
-                constructor() { }
-                }
-
-            </xmp>
-        </div>
     </div>
 </body>
 
